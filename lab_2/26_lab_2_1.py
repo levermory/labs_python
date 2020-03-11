@@ -5,3 +5,4 @@ n = int(math.sqrt(len(array)))
 print(n)
 for i in range(n):
     pass
+print("hello world")
