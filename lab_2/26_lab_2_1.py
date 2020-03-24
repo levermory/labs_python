@@ -1,6 +1,6 @@
 # sqrt decomposition
 
-#%%
+# %%
 import random
 
 file = open('requests.txt', 'w')
@@ -8,10 +8,10 @@ n = 10
 for i in range(n):
     l = random.randint(0, 18)
     r = random.randint(l, 18)
-    file.write(str(l)+' '+str(r)+'\n')
+    file.write(str(l) + ' ' + str(r) + '\n')
 file.close()
 
-#%%
+# %%
 import math
 
 array = range(1, 20)
@@ -20,7 +20,7 @@ sums = []
 sum = 0
 for i in range(len(array)):
     sum += array[i]
-    if (i+1) % n == 0:
+    if (i + 1) % n == 0:
         sums.append(sum)
         sum = 0
     elif i == len(array) - 1:
@@ -52,5 +52,3 @@ def request(some_var="0 18"):
 file = open('requests.txt', 'r')
 for line in file:
     print(request(line))
-
-
