@@ -22,7 +22,7 @@ def sqrt_decomposition(array):
         else:
             i = left = int(some_var[0])
             right = int(some_var[1])
-            if left < 0 or right > len(array):
+            if left < 0 or right >= len(array):
                 print("Error: wrong request.")
             else:
                 temp_sum = 0
@@ -50,15 +50,18 @@ def file_operation():
 
 
 def input_operations():
+    print("To exit input mode type \"end\"")
     users_input = input("Enter array: ")
+    temp_array = users_input.split()
+    for i in range(len(temp_array)):
+        temp_array[i] = int(temp_array[i])
+    input_array = sqrt_decomposition(temp_array)
     while True:
+        users_input = input("Enter request: ")
         if users_input == "end":
             break
-        temp_array = users_input.split()
-        for i in range(len(temp_array)):
-            temp_array[i] = int(temp_array[i])
-        input_array = sqrt_decomposition(temp_array)
-        print(input_array(input("Enter your request: ")))
+        else:
+            print(input_array(users_input))
 
 
 print("Welcome to sqrt-decompositor!\n\
@@ -72,6 +75,7 @@ Or you may enter \"stop\" if you want to cancel.")
 while True:
     command = input("Enter your command: ")
     if command == "stop":
+        print("Have a nice day!")
         break
     elif command == "file":
         file_operation()
