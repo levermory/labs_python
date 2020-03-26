@@ -4,6 +4,12 @@ from math import sqrt
 
 
 def sqrt_decomposition(array):
+    """ Function returns sum on the [left, right]
+    segment of the given array. Request must be
+    a string of 2 integers and a space between them,
+    e.g. "2 5".
+
+    """
     n = int(sqrt(len(array)))
     blocks = []
     block = 0
@@ -36,6 +42,7 @@ def sqrt_decomposition(array):
                         temp_sum += array[i]
                         i += 1
                 return temp_sum
+
     return request
 
 
@@ -50,12 +57,12 @@ def file_operation():
 
 
 def input_operations():
-    print("To exit input mode type \"end\"")
     users_input = input("Enter array: ")
     temp_array = users_input.split()
     for i in range(len(temp_array)):
         temp_array[i] = int(temp_array[i])
     input_array = sqrt_decomposition(temp_array)
+    print("To exit input mode type \"end\"")
     while True:
         users_input = input("Enter request: ")
         if users_input == "end":
@@ -64,22 +71,25 @@ def input_operations():
             print(input_array(users_input))
 
 
-print("Welcome to sqrt-decompositor!\n\
-To read the array and requests from\n\
-\"requests.txt\" file please type \"file\"\n\
-To input data manually type \"input\"\n\
-Please, type your requests as \"int space int\",\n\
-e.g. \"4 5\".\n\
-Or you may enter \"stop\" if you want to cancel.")
+if __name__ == "__main__":
+    print("""
+Welcome to sqrt-decompositor! 
+To read the array and requests from 
+"requests.txt" file please type "file" 
+To input data manually type "input" 
+Please, type your requests as "int space int",
+e.g. "4 5".
+Or you may enter "stop" if you want to cancel. 
+    """)
 
-while True:
-    command = input("Enter your command: ")
-    if command == "stop":
-        print("Have a nice day!")
-        break
-    elif command == "file":
-        file_operation()
-    elif command == "input":
-        input_operations()
-    else:
-        print("unknown command")
+    while True:
+        command = input("Enter your command: ")
+        if command == "stop":
+            print("Have a nice day!")
+            break
+        elif command == "file":
+            file_operation()
+        elif command == "input":
+            input_operations()
+        else:
+            print("unknown command")
