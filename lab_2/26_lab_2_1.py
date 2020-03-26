@@ -73,14 +73,13 @@ def input_operations():
 
 if __name__ == "__main__":
     print("""
-Welcome to sqrt-decompositor! 
-To read the array and requests from 
-"requests.txt" file please type "file" 
-To input data manually type "input" 
+Welcome to sqrt-decompositor!
+To read the array and requests from
+"requests.txt" file please type "file"
+To input data manually type "input"
 Please, type your requests as "int space int",
 e.g. "4 5".
-Or you may enter "stop" if you want to cancel. 
-    """)
+Or you may enter "stop" if you want to cancel. """)
 
     while True:
         command = input("Enter your command: ")
