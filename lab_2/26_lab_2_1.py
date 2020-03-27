@@ -57,6 +57,7 @@ def file_operation():
 
 
 def input_operations():
+    print("Please, enter array like "1 2 3 4…".)
     users_input = input("Enter array: ")
     temp_array = users_input.split()
     for i in range(len(temp_array)):
