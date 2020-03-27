@@ -47,6 +47,10 @@ def sqrt_decomposition(array):
 
 
 def file_operation():
+    """Enables user to read array and
+    requests from file.
+
+    """
     with open('requests.txt') as file:
         array = list(file.readline().split())
         for i in range(len(array)):
@@ -57,7 +61,12 @@ def file_operation():
 
 
 def input_operations():
-    print("Please, enter array like "1 2 3 4…".)
+    """Enables user to input array and requests manually.
+    Array must be a string of numbers separated by spaces
+    e.g.: "1 2 3 4 5…"
+
+    """
+    print("""Please, enter array like "1 2 3 4…".""")
     users_input = input("Enter array: ")
     temp_array = users_input.split()
     for i in range(len(temp_array)):
