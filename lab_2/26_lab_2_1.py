@@ -38,29 +38,30 @@ def sqrt_decomposition(array):
     return request
 
 
-def file_operation():
+def file_operation(file_name="requests"):
     """Enables user to read array and
     requests from file.
 
     """
-    with open('requests.txt') as file:
-        file_array = file.readline().split()
-        try:
-            file_array = list(map(int, file_array))
-            decomposed_array = sqrt_decomposition(file_array)
-            for request in file:
-                request = list(map(int, request.split()))
-                #            print(decomposed_array(request))
-                try:
-                    print(decomposed_array(request))
-                except IndexError:
-                    print("Wrong request", end='')
-                    print(request)
-        except ValueError:
-            print("Wrong array")
+    try:
+        with open('{}.txt'.format(file_name)) as file:
+            file_array = file.readline().split()
+            try:
+                file_array = list(map(int, file_array))
+                decomposed_array = sqrt_decomposition(file_array)
+                for request in file:
+                    request = list(map(int, request.split()))
+                    try:
+                        print(decomposed_array(request))
+                    except IndexError:
+                        print("Wrong request", end='')
+                        print(request)
+            except ValueError:
+                print("Wrong array")
+    except FileNotFoundError:
+        print("No such file ¯\_(ツ)_/¯ ")
 
 
-#%% input
 def input_operations():
     """Enables user to input array and requests manually.
     Array must be a string of numbers separated by spaces
@@ -97,7 +98,7 @@ To read the array and requests from
 To input data manually type "input"
 Please, type your requests as "int space int",
 e.g. "4 5".
-Or you may enter "stop" if you want to cancel. """)
+Or you may enter "stop" if you want to cancel.\n """)
 
     while True:
         command = input("Enter your command: ")
@@ -105,7 +106,13 @@ Or you may enter "stop" if you want to cancel. """)
             print("Have a nice day!")
             break
         elif command == "file":
-            file_operation()
+            print("""
+Enter file's name (enter 'default' to use 'requests.txt'): """)
+            users_file_name = input()
+            if users_file_name == "default":
+                file_operation()
+            else:
+                file_operation(users_file_name)
         elif command == "input":
             input_operations()
         else:
