@@ -38,13 +38,13 @@ def sqrt_decomposition(array):
     return request
 
 
-def file_operation(file_name="requests"):
+def file_operation(file="requests.txt"):
     """Enables user to read array and
     requests from file.
 
     """
     try:
-        with open('{}.txt'.format(file_name)) as file:
+        with open('{}'.format(file)) as file:
             file_array = file.readline().split()
             try:
                 file_array = list(map(int, file_array))
@@ -107,12 +107,12 @@ Or you may enter "stop" if you want to cancel.\n """)
             break
         elif command == "file":
             print("""
-Enter file's name (enter 'default' to use 'requests.txt'): """)
-            users_file_name = input()
-            if users_file_name == "default":
+Enter path to your file(enter 'default' to use 'requests.txt'): """)
+            users_file = input()
+            if users_file == "default":
                 file_operation()
             else:
-                file_operation(users_file_name)
+                file_operation(users_file)
         elif command == "input":
             input_operations()
         else:
