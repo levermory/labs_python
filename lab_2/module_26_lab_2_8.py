@@ -1,5 +1,13 @@
 # dvoika degree
 
+import argparse
+
+
+def create_parser():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('number', nargs='?', type=int)
+    return parser
+
 
 def if_degree(number):
     """Bool function which checks if an argument is
@@ -9,16 +17,15 @@ def if_degree(number):
 
     number = list(bin(number))
     del number[:2]
-    number = list(map(int, number))
-    check = sum(number)
-    if check == 1:
+    number = map(int, number)
+    if sum(number) == 1:
         return True
     else:
         return False
 
 
 def check():
-    print("Enter 'stop' to stop. \n")
+    print("\nEnter 'stop' to stop. \n")
     while True:
         users_input = input("Enter your number:")
         if users_input == "stop":
@@ -33,4 +40,9 @@ def check():
 
 
 if __name__ == '__main__':
-    check()
+    parser = create_parser()
+    namespace = parser.parse_args()
+    if namespace.number:
+        print(if_degree(namespace.number))
+    else:
+        check()
