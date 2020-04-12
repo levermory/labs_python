@@ -42,8 +42,9 @@ if __name__ == '__main__':
     cmdline_parser = create_parser()
     namespace = cmdline_parser.parse_args()
 
-    with open(namespace.file, 'r') as file:
-        for line in file:
-            array = line.split()
-            merge_sort(array)
-            print(array)
+    with open('merged.txt', 'w') as write_file:
+        with open(namespace.file, 'r') as read_file:
+            for line in read_file:
+                array = line.split()
+                merge_sort(array)
+                write_file.write(" ".join(array))
