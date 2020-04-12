@@ -56,13 +56,9 @@ def merge_sort(array):
             k += 1
 
 
-line = random_line((6,10), (200,200))
-array = line.split()
-
-
-merge_sort(array)
-print(array)
-
-
 if __name__ == '__main__':
-    pass
+    line = random_line((6, 10), (200, 200))
+    array = line.split()
+
+    merge_sort(array)
+    print(array)
