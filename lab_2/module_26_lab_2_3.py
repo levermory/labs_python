@@ -1,28 +1,10 @@
-from random import choice
-from random import randint
+import argparse
 
 
-def random_letter():
-    code_range = list(range(65, 122))
-    del code_range[26:32]
-    return chr(choice(code_range))
-
-
-def random_word(L):
-    length = randint(L[0], L[1])
-    word = ""
-    for i in range(length):
-        word += random_letter()
-    return word
-
-
-def random_line(L, K):
-    length = randint(K[0], K[1])
-    line = ""
-    for i in range(length):
-        line = line + random_word(L) + ' '
-    line += '\n'
-    return line
+def create_parser():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('file', nargs='?', default='test.txt')
+    return parser
 
 
 def merge_sort(array):
@@ -57,8 +39,11 @@ def merge_sort(array):
 
 
 if __name__ == '__main__':
-    line = random_line((6, 10), (200, 200))
-    array = line.split()
+    cmdline_parser = create_parser()
+    namespace = cmdline_parser.parse_args()
 
-    merge_sort(array)
-    print(array)
+    with open(namespace.file, 'r') as file:
+        for line in file:
+            array = line.split()
+            merge_sort(array)
+            print(array)
