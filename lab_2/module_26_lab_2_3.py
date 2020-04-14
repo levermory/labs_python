@@ -54,9 +54,10 @@ def merge_sort_file(file):
 
     else:
         file_lines = file.readlines()
-        file.seek(0)
         merge_sort(file_lines)
+        file.seek(0)
         file.writelines(file_lines)
+        test_file.seek(0)
 
 
 if __name__ == '__main__':
@@ -67,7 +68,6 @@ if __name__ == '__main__':
 
     with open(namespace.file, 'r') as read_file:
         test_file = tempfile.TemporaryFile(mode='w+t')
-        test_file.write(read_file.read())
         for line in read_file:
             array = line.split()
             merge_sort(array)
@@ -77,6 +77,7 @@ if __name__ == '__main__':
         test_lines1 = test_file.readlines()
         merge_sort_file(test_file)
         test_lines2 = test_file.readlines()
+        test_file.close()
         # with open(namespace.output, 'w+') as write_file:
         #     for line in read_file:
         #         array = line.split()
