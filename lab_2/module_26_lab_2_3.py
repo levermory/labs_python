@@ -54,8 +54,8 @@ def merge_sort_file(file):
 
     else:
         file_lines = file.readlines()
-        merge_sort(file_lines)
         file.seek(0)
+        merge_sort(file_lines)
         file.writelines(file_lines)
 
 
@@ -66,10 +66,21 @@ if __name__ == '__main__':
     namespace = parser.parse_args()
 
     with open(namespace.file, 'r') as read_file:
-        with open(namespace.output, 'w+') as write_file:
-            for line in read_file:
-                array = line.split()
-                merge_sort(array)
-                write_file.write(' '.join(array))
-                write_file.write('\n')
-            merge_sort_file(write_file)
+        test_file = tempfile.TemporaryFile(mode='w+t')
+        test_file.write(read_file.read())
+        for line in read_file:
+            array = line.split()
+            merge_sort(array)
+            test_file.write(' '.join(array))
+            test_file.write('\n')
+        test_file.seek(0)
+        test_lines1 = test_file.readlines()
+        merge_sort_file(test_file)
+        test_lines2 = test_file.readlines()
+        # with open(namespace.output, 'w+') as write_file:
+        #     for line in read_file:
+        #         array = line.split()
+        #         merge_sort(array)
+        #         write_file.write(' '.join(array))
+        #         write_file.write('\n')
+        #     merge_sort_file(write_file)
