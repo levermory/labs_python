@@ -38,26 +38,47 @@ def merge_sort_file(file):
     file.seek(0)
     size = os.path.getsize(file.name)
 
-    if size > 419430400:
+    if size > 524288:  # 419430400:
 
-        left_sub = tempfile.TemporaryFile(mode='w+t')
-        right_sub = tempfile.TemporaryFile(mode='w+t')
+        left_sub_file = tempfile.TemporaryFile(mode='w+t')
+        right_sub_file = tempfile.TemporaryFile(mode='w+t')
 
         for line in file:
-            if os.path.getsize(left_sub.name) <= size // 2:
-                left_sub.write(line)
+            if os.path.getsize(left_sub_file.name) <= size // 2:
+                left_sub_file.write(line)
             else:
-                right_sub.write(line)
+                right_sub_file.write(line)
 
-        merge_sort_file(left_sub)
-        merge_sort_file(right_sub)
+        merge_sort_file(left_sub_file)
+        merge_sort_file(right_sub_file)
+
+        left_line = left_sub_file.readline()
+        right_line = right_sub_file.readline()
+
+        file.seek(0)
+
+        while left_line and right_line:
+            if left_line < right_line:
+                file.write(left_line)
+                left_line = left_sub_file.readline()
+            else:
+                file.write(right_line)
+                right_line = right_sub_file.readline()
+
+        while left_line:
+            file.write(left_line)
+            left_line = left_sub_file.readline()
+
+        while right_line:
+            file.write(right_line)
+            right_line = right_sub_file.readline()
 
     else:
         file_lines = file.readlines()
         merge_sort(file_lines)
         file.seek(0)
         file.writelines(file_lines)
-        test_file.seek(0)
+        file.seek(0)
 
 
 if __name__ == '__main__':
@@ -67,21 +88,20 @@ if __name__ == '__main__':
     namespace = parser.parse_args()
 
     with open(namespace.file, 'r') as read_file:
-        test_file = tempfile.TemporaryFile(mode='w+t')
-        for line in read_file:
-            array = line.split()
-            merge_sort(array)
-            test_file.write(' '.join(array))
-            test_file.write('\n')
-        test_file.seek(0)
-        test_lines1 = test_file.readlines()
-        merge_sort_file(test_file)
-        test_lines2 = test_file.readlines()
-        test_file.close()
-        # with open(namespace.output, 'w+') as write_file:
-        #     for line in read_file:
-        #         array = line.split()
-        #         merge_sort(array)
-        #         write_file.write(' '.join(array))
-        #         write_file.write('\n')
-        #     merge_sort_file(write_file)
+        # test_file = tempfile.TemporaryFile(mode='w+t')
+        # for line in read_file:
+        #     array = line.split()
+        #     merge_sort(array)
+        #     test_file.write(' '.join(array))
+        #     test_file.write('\n')
+        # merge_sort_file(test_file)
+        # test_file.seek(0)
+        # test_lines1 = test_file.readlines()
+        # test_file.close()
+        with open(namespace.output, 'w+') as write_file:
+            for line in read_file:
+                array = line.split()
+                merge_sort(array)
+                write_file.write(' '.join(array))
+                write_file.write('\n')
+            merge_sort_file(write_file)
