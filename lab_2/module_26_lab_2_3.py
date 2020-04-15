@@ -85,7 +85,7 @@ def merge_sort_file(file):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('file', nargs='?', default='check_file.txt')
+    parser.add_argument('file', nargs='?', default='input.txt')
     parser.add_argument('-o', '--output', default='output.txt')
     namespace = parser.parse_args()
 
