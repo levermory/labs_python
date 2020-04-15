@@ -38,7 +38,7 @@ def merge_sort_file(file):
     file.seek(0)
     size = os.path.getsize(file.name)
 
-    if size > 524288:  # 419430400:
+    if size > 419430400:
 
         left_sub_file = tempfile.TemporaryFile(mode='w+t')
         right_sub_file = tempfile.TemporaryFile(mode='w+t')
@@ -52,10 +52,12 @@ def merge_sort_file(file):
         merge_sort_file(left_sub_file)
         merge_sort_file(right_sub_file)
 
+        file.seek(0)
+        left_sub_file.seek(0)
+        right_sub_file.seek(0)
+
         left_line = left_sub_file.readline()
         right_line = right_sub_file.readline()
-
-        file.seek(0)
 
         while left_line and right_line:
             if left_line < right_line:
@@ -83,21 +85,11 @@ def merge_sort_file(file):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('file', nargs='?', default='unmerged.txt')
-    parser.add_argument('-o', '--output', default='merged.txt')
+    parser.add_argument('file', nargs='?', default='check_file.txt')
+    parser.add_argument('-o', '--output', default='output.txt')
     namespace = parser.parse_args()
 
     with open(namespace.file, 'r') as read_file:
-        # test_file = tempfile.TemporaryFile(mode='w+t')
-        # for line in read_file:
-        #     array = line.split()
-        #     merge_sort(array)
-        #     test_file.write(' '.join(array))
-        #     test_file.write('\n')
-        # merge_sort_file(test_file)
-        # test_file.seek(0)
-        # test_lines1 = test_file.readlines()
-        # test_file.close()
         with open(namespace.output, 'w+') as write_file:
             for line in read_file:
                 array = line.split()
