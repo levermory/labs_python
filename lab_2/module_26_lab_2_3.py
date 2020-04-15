@@ -75,6 +75,9 @@ def merge_sort_file(file):
             file.write(right_line)
             right_line = right_sub_file.readline()
 
+        left_sub_file.close()
+        right_sub_file.close()
+
     else:
         file_lines = file.readlines()
         merge_sort(file_lines)
