@@ -88,15 +88,16 @@ def merge_sort_file(file):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('file', nargs='?', default='input.txt')
-    parser.add_argument('-o', '--output', default='output.txt')
+    parser.add_argument('file', nargs='?', default='input.txt', type=argparse.FileType('r'))
+    parser.add_argument('-o', '--output', default='output.txt', type=argparse.FileType('w+'))
     namespace = parser.parse_args()
 
-    with open(namespace.file, 'r') as read_file:
-        with open(namespace.output, 'w+') as write_file:
-            for line in read_file:
-                array = line.split()
-                merge_sort(array)
-                write_file.write(' '.join(array))
-                write_file.write('\n')
-            merge_sort_file(write_file)
+    read_file = namespace.file
+    write_file = namespace.output
+
+    for line in read_file:
+        array = line.split()
+        merge_sort(array)
+        write_file.write(' '.join(array))
+        write_file.write('\n')
+    merge_sort_file(write_file)
