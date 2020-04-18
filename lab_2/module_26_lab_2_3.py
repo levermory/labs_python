@@ -38,8 +38,7 @@ def merge_sort_file(file):
     file.seek(0)
     size = os.path.getsize(file.name)
 
-    if size > 419430400:
-
+    if size > 1048576 * 400:
         left_sub_file = tempfile.TemporaryFile(mode='w+t')
         right_sub_file = tempfile.TemporaryFile(mode='w+t')
 
@@ -79,10 +78,13 @@ def merge_sort_file(file):
         right_sub_file.close()
 
     else:
+        global progress
         file_lines = file.readlines()
         merge_sort(file_lines)
         file.seek(0)
         file.writelines(file_lines)
+        progress += len(file_lines)
+        print('\r', '%', 50 + progress/line_count * 50, end='')
         file.seek(0)
 
 
@@ -95,9 +97,14 @@ if __name__ == '__main__':
     read_file = namespace.file
     write_file = namespace.output
 
+    line_count = 0
+    progress = 0
+
     for line in read_file:
         array = line.split()
         merge_sort(array)
         write_file.write(' '.join(array))
         write_file.write('\n')
+        line_count += 1
+        print('\r', '%', os.path.getsize(write_file.name)/os.path.getsize(read_file.name) * 50, end='')
     merge_sort_file(write_file)
