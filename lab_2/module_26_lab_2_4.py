@@ -3,7 +3,7 @@
 import argparse
 
 
-def flatten_it(iter_object):
+def flattener(iter_object):
     """Flattens any iterable argument
 
     """
@@ -18,6 +18,12 @@ def flatten_it(iter_object):
             result.append(element)
         except RecursionError:
             raise ValueError
+            
+            
+def flatten_if(list)
+    result = []
+    flattener(list)
+    return result
 
 
 if __name__ == "__main__":
@@ -27,6 +33,4 @@ if __name__ == "__main__":
 
     # test = "[1, ['b', [3, 'c', [5, 'c']]]]"
     users_input = eval(namespace.input)
-    result = []
-    flatten_it(users_input)
-    print(result)
+    print(flatten_it(users_input))
