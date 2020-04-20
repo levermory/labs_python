@@ -14,27 +14,6 @@ def create_parser():
     return parser
 
 
-def random_letter():
-    code_range = list(range(65, 122))
-    del code_range[26:32]
-    return chr(choice(code_range))
-
-
-def random_word(L):
-    length = randint(L[0], L[1])
-    word = ""
-    for i in range(length):
-        word += random_letter()
-    return word
-
-
-def random_line(L, K):
-    length = randint(K[0], K[1])
-    line = ""
-    for i in range(length):
-        line = line + random_word(L) + ' '
-    line += '\n'
-    return line
 
 
 def generate_file(file_name, file_size, K=(10, 100), L=(3, 10)):
@@ -42,6 +21,27 @@ def generate_file(file_name, file_size, K=(10, 100), L=(3, 10)):
     with K words per line, each word is of L letters.
 
     """
+
+    def random_letter():
+        code_range = list(range(65, 122))
+        del code_range[26:32]
+        return chr(choice(code_range))
+
+    def random_word(L):
+        length = randint(L[0], L[1])
+        word = ""
+        for i in range(length):
+            word += random_letter()
+        return word
+
+    def random_line(L, K):
+        length = randint(K[0], K[1])
+        line = ""
+        for i in range(length):
+            line = line + random_word(L) + ' '
+        line += '\n'
+        return line
+
     file_size *= 1024 ** 2
     progress = 0
     with open("{}.txt".format(file_name), 'w') as file:
