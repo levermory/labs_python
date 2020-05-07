@@ -1,31 +1,29 @@
-# dvoika degree
+# leonardo num
 
 import argparse
 
 
-def create_parser():
-    parser = argparse.ArgumentParser()
-    parser.add_argument('number', nargs='?', type=int)
-    return parser
-
-
-def if_degree(number):
-    """Bool function which checks if an argument is
-    a accurate degree of 2.
-
-    """
-
-    number = list(bin(number))
-    del number[:2]
-    number = map(int, number)
-    if sum(number) == 1:
-        return True
+def leo(n):
+    """functions which returns n-th Leonardo number"""
+    if n == 0:
+        return 1
+    elif n == 1:
+        return 1
     else:
-        return False
+        return leo(n-1) + leo(n-2) + 1
+
+
+def if_leo(number):
+    i = 0
+    while leo(i) <= number:
+        if leo(i) == number:
+            return True
+        i += 1
+    return False
 
 
 def check():
-    print("\nEnter 'stop' to stop. \n")
+    print("\nEnter 'stop' to stop.\n")
     while True:
         users_input = input("Enter your number:")
         if users_input == "stop":
@@ -34,15 +32,17 @@ def check():
         else:
             try:
                 number_to_check = int(users_input)
-                print(if_degree(number_to_check))
+                print(if_leo(number_to_check))
             except ValueError:
                 print("Wrong input")
 
 
 if __name__ == '__main__':
-    parser = create_parser()
+    parser = argparse.ArgumentParser()
+    parser.add_argument('number', nargs='?', type=int)
     namespace = parser.parse_args()
     if namespace.number:
-        print(if_degree(namespace.number))
+        print(if_leo(namespace.number))
     else:
         check()
+
