@@ -59,7 +59,7 @@ def file_operation(file="requests.txt"):
             except ValueError:
                 print("Wrong array")
     except FileNotFoundError:
-        print("No such file ¯\_(ツ)_/¯ ")
+        print(r"No such file ¯\_(ツ)_/¯ ")
 
 
 def input_operations():
